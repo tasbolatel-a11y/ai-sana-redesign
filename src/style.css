@@ -4197,6 +4197,14 @@ svg {
     line-height: 1.55;
 }
 
+.hero__text {
+    max-width: 600px;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #C5CDDC;
+}
+
 .about,
 .stages-section,
 .contacts-section {
@@ -4247,12 +4255,54 @@ svg {
 
 .hero {
     min-height: min(900px, calc(100svh - 20px));
-    background-size: 100% 100%, auto max(100%, 760px);
-    background-position: center, right center;
+    background: #00173A;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    right: -18px;
+    width: auto;
+    height: max(84%, 640px);
+    aspect-ratio: 1672 / 941;
+    transform: translateY(-50%);
+    background: url("/images/hero-ai.jpg") center / 100% 100% no-repeat;
+    pointer-events: none;
+    -webkit-mask-image:
+        linear-gradient(to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.18) 10%,
+            rgba(0, 0, 0, 0.55) 20%,
+            #000 32%,
+            #000 92%,
+            transparent 100%),
+        linear-gradient(to bottom,
+            transparent 0%,
+            #000 9%,
+            #000 91%,
+            transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+        linear-gradient(to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.18) 10%,
+            rgba(0, 0, 0, 0.55) 20%,
+            #000 32%,
+            #000 92%,
+            transparent 100%),
+        linear-gradient(to bottom,
+            transparent 0%,
+            #000 9%,
+            #000 91%,
+            transparent 100%);
+    mask-composite: intersect;
 }
 
 .hero__content {
     padding-top: clamp(150px, 21svh, 230px);
+    z-index: 1;
 }
 
 .button,
@@ -4407,8 +4457,13 @@ svg {
 
     .hero {
         min-height: 760px;
-        background-size: 100% 100%, auto 100%;
-        background-position: center, 54% center;
+    }
+
+    .hero::before {
+        left: 44%;
+        right: auto;
+        height: 84%;
+        transform: translate(-44%, -50%);
     }
 
     .hero__title { max-width: 12ch; }
@@ -4420,11 +4475,16 @@ svg {
 
     .hero {
         min-height: 740px;
-        background-position: center, 58% center;
+    }
+
+    .hero::before {
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .hero__content { padding-top: 132px; }
     .hero__title { font-size: clamp(2.35rem, 11vw, 3.25rem); }
+    .hero__text { font-size: clamp(15px, 4vw, 16px); }
     .hero__actions { width: 100%; }
     .hero__actions .button { max-width: 100%; }
 
