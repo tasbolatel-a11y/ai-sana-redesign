@@ -226,7 +226,7 @@ const about = () => {
     list.append(card);
   });
 
-  left.append(eyebrow, heading, aboutIntro, list);
+  left.append(eyebrow, heading, list);
 
   const right = el('div', 'about__right');
 
