@@ -4134,3 +4134,508 @@ svg {
         font-size: 16px;
     }
 }
+
+/* =========================================================
+   2026 UI AUDIT — TYPOGRAPHY, RHYTHM, MOTION AND RESPONSIVE QA
+   The Groundworks projects section is deliberately out of scope.
+========================================================= */
+
+:root {
+    --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --type-h1: clamp(3rem, 5vw, 4.5rem);
+    --type-h2: clamp(2rem, 3vw, 2.75rem);
+    --type-h3: clamp(1.125rem, 1.45vw, 1.5rem);
+    --type-body: clamp(0.9375rem, 0.35vw + 0.875rem, 1.125rem);
+    --type-caption: clamp(0.75rem, 0.2vw + 0.72rem, 0.875rem);
+    --section-space: clamp(4.5rem, 7vw, 7rem);
+}
+
+.site-header,
+.hero,
+.about,
+.quote-section,
+.stats,
+.stages-section,
+.contacts-section,
+.footer-section {
+    font-family: var(--font-sans);
+}
+
+.site-header__inner,
+.hero__content,
+.about__container,
+.stats-container,
+.stages-container,
+.contacts-container {
+    position: relative;
+    left: auto;
+    max-width: 1280px;
+}
+
+.brand,
+.hero__content,
+.about__left,
+.stats__intro {
+    left: auto;
+}
+
+.hero__title {
+    max-width: 940px;
+    font-family: var(--font-sans);
+    font-size: var(--type-h1);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+}
+
+.hero__text,
+.about__description,
+.quote-text,
+.contacts-description {
+    font-size: var(--type-body);
+    line-height: 1.55;
+}
+
+.about,
+.stages-section,
+.contacts-section {
+    padding-block: var(--section-space);
+}
+
+.about .section-title,
+.quote-title,
+.stats__title,
+.stages-title,
+.contacts-title {
+    font-family: var(--font-sans);
+    font-size: var(--type-h2);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+}
+
+.about .section-title--right {
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    line-height: 1.25;
+}
+
+.direction__title,
+.stage-heading {
+    font-size: var(--type-h3);
+    line-height: 1.3;
+}
+
+.direction__text,
+.stage-text,
+.stat__label,
+.contacts-detail__value,
+.footer-link,
+.footer-brand__text p {
+    line-height: 1.55;
+}
+
+.eyebrow,
+.about .eyebrow,
+.stages-eyebrow,
+.contacts-eyebrow,
+.footer-label {
+    font-size: var(--type-caption);
+    letter-spacing: 0.1em;
+}
+
+.hero {
+    min-height: min(900px, calc(100svh - 20px));
+    background-size: 100% 100%, auto max(100%, 760px);
+    background-position: center, right center;
+}
+
+.hero__content {
+    padding-top: clamp(150px, 21svh, 230px);
+}
+
+.button,
+.contacts-button,
+.footer-link {
+    transition: transform 220ms ease, background-color 220ms ease, color 220ms ease, opacity 220ms ease;
+}
+
+.button:focus-visible,
+.nav__link:focus-visible,
+.contacts-button:focus-visible,
+.contacts-detail__value:focus-visible,
+.footer-link:focus-visible {
+    outline: 3px solid rgba(124, 55, 184, 0.45);
+    outline-offset: 4px;
+}
+
+.quote-card {
+    transform: translateY(22px);
+}
+
+.quote-card.is-visible {
+    transform: none;
+}
+
+.contacts-map {
+    overflow: hidden;
+}
+
+.contacts-map__image {
+    width: 100%;
+    height: auto;
+}
+
+/* One authoritative timeline implementation replaces the legacy overrides. */
+.stages-timeline {
+    --timeline-top: 0px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: clamp(5rem, 8vw, 6.5rem);
+}
+
+.stages-line {
+    position: absolute;
+    z-index: 0;
+    top: var(--timeline-top);
+    left: 50%;
+    width: 100vw;
+    height: 2px;
+    transform: translateX(-50%);
+    background: #b7bbc2;
+}
+
+.stage-item {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    padding-inline: clamp(1rem, 2.5vw, 2rem);
+    align-items: center;
+    text-align: center;
+}
+
+.stage-dot {
+    order: 1;
+    position: relative;
+    z-index: 3;
+    width: 13px;
+    height: 13px;
+    margin: -5.5px 0 1.5rem;
+    border-radius: 50%;
+    background: #7c37b8;
+    box-shadow: none;
+    animation: none;
+}
+
+.stage-dot::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 1px solid #7c37b8;
+    border-radius: inherit;
+    opacity: 0;
+    animation: none;
+}
+
+.stage-dot.is-hit {
+    animation: auditStageBeat 620ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.stage-dot.is-hit::after {
+    animation: auditStageRipple 720ms ease-out both;
+}
+
+.stage-number {
+    order: 2;
+    margin: 0 0 1rem;
+    font-size: clamp(2.75rem, 4.5vw, 3.5rem);
+    line-height: 1;
+}
+
+.stage-heading {
+    order: 3;
+    max-width: 22rem;
+    margin: 0 0 0.75rem;
+}
+
+.stage-text {
+    order: 4;
+    max-width: 22rem;
+    margin: 0;
+    font-size: 0.9375rem;
+}
+
+.stages-impulse {
+    position: absolute;
+    z-index: 2;
+    top: -1px;
+    left: 0;
+    width: 160px;
+    height: 3px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(90deg, transparent, rgba(124, 55, 184, .42) 45%, #7c37b8 100%);
+    box-shadow: 0 0 5px rgba(124, 55, 184, .18);
+    opacity: 0;
+    animation: none;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.stages-impulse::before,
+.stages-impulse::after {
+    content: none;
+}
+
+@keyframes auditStageBeat {
+    0%, 34%, 68%, 100% { transform: scale(1); }
+    18% { transform: scale(1.55); }
+    50% { transform: scale(1.3); }
+}
+
+@keyframes auditStageRipple {
+    0% { opacity: .45; transform: scale(.8); }
+    100% { opacity: 0; transform: scale(2.4); }
+}
+
+@media (max-width: 900px) {
+    .site-header__inner { gap: 1.5rem; }
+
+    .hero {
+        min-height: 760px;
+        background-size: 100% 100%, auto 100%;
+        background-position: center, 54% center;
+    }
+
+    .hero__title { max-width: 12ch; }
+    .about__container { gap: 2.5rem; }
+}
+
+@media (max-width: 640px) {
+    :root { --section-space: 3.75rem; }
+
+    .hero {
+        min-height: 740px;
+        background-position: center, 58% center;
+    }
+
+    .hero__content { padding-top: 132px; }
+    .hero__title { font-size: clamp(2.35rem, 11vw, 3.25rem); }
+    .hero__actions { width: 100%; }
+    .hero__actions .button { max-width: 100%; }
+
+    .stages-timeline {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3.25rem;
+        margin-top: 3.5rem;
+        padding-left: 1.75rem;
+    }
+
+    .stages-line {
+        display: block;
+        top: 0;
+        bottom: 0;
+        left: 6px;
+        width: 2px;
+        height: 100%;
+        transform: none;
+    }
+
+    .stages-impulse { display: none; }
+
+    .stage-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 1rem;
+        padding: 0;
+        align-items: start;
+        text-align: left;
+    }
+
+    .stage-dot {
+        grid-column: 1;
+        grid-row: 1 / span 3;
+        margin: 0 0 0 -1.72rem;
+        transform: translateX(0);
+    }
+
+    .stage-number,
+    .stage-heading,
+    .stage-text {
+        grid-column: 2;
+        max-width: none;
+    }
+
+    .stage-number { grid-row: 1; margin-top: -0.4rem; }
+    .stage-heading { grid-row: 2; }
+    .stage-text { grid-row: 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+    }
+
+    .reveal,
+    .quote-card,
+    .stage-dot,
+    .stage-dot::after {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        animation: none;
+    }
+
+    .stages-impulse { display: none; }
+}
+/* HERO — компактный заголовок */
+.hero__title {
+    max-width: 850px;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(36px, 3.4vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+}
+
+/* Ноутбуки */
+@media (max-width: 1440px) {
+    .hero__title {
+        max-width: 720px;
+        font-size: clamp(36px, 3.8vw, 52px);
+    }
+}
+
+/* Планшеты и телефоны */
+@media (max-width: 768px) {
+    .hero__title {
+        max-width: 100%;
+        font-size: clamp(32px, 6vw, 44px);
+        overflow-wrap: break-word;
+    }
+}
+/* ==========================================
+   KAZNMU MAP — BREATHING PURPLE LIGHT
+========================================== */
+
+/* Контейнер карты */
+.contacts-map {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Основная фотография */
+.contacts-map__image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* Фотография с подсветкой поверх оригинала */
+/* Подсветка зданий КазНМУ */
+.contacts-map__glow {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: fill;
+
+    opacity: 0;
+    filter: saturate(1.25) contrast(1.04);
+
+    animation: kaznmuBreathingLight 5s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+/* Плавная подсветка с двойным импульсом */
+@keyframes kaznmuBreathingLight {
+    0%, 100% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0.85;
+    }
+
+    38% {
+        opacity: 1;
+    }
+
+    48% {
+        opacity: 0.72;
+    }
+
+    58% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 0.35;
+    }
+}
+
+/* Отключаем анимацию при соответствующей настройке системы */
+@media (prefers-reduced-motion: reduce) {
+    .contacts-map__glow {
+        animation: none;
+        opacity: 0;
+        filter: none;
+    }
+}
+/* Три слоя карты КазНМУ */
+.contacts-map {
+    position: relative;
+    overflow: hidden;
+}
+
+.contacts-map__glow,
+.contacts-map__high {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* Отключаем прежнюю анимацию второго слоя */
+.contacts-map__glow {
+    animation: kaznmuSoftGlow 6s ease-in-out infinite;
+}
+
+/* Усиленная подсветка */
+.contacts-map__high {
+    animation: kaznmuHighGlow 6s ease-in-out infinite;
+}
+
+/* Мягкая подсветка появляется первой */
+@keyframes kaznmuSoftGlow {
+    0%, 100% { opacity: 0; }
+    20%, 75% { opacity: 1; }
+    90% { opacity: 0; }
+}
+
+/* Яркая подсветка появляется поверх мягкой */
+@keyframes kaznmuHighGlow {
+    0%, 25%, 85%, 100% { opacity: 0; }
+    45%, 60% { opacity: 1; }
+}
+
+/* Доступность */
+@media (prefers-reduced-motion: reduce) {
+    .contacts-map__glow,
+    .contacts-map__high {
+        animation: none;
+        opacity: 0;
+    }
+}

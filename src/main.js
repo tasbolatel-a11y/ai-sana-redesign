@@ -688,17 +688,46 @@ const contacts = () => {
   );
 
   // Изометрическая карта
-  const map = el('div', 'contacts-map');
+// ==========================================
+// КАРТА КАЗНМУ — ПЛАВНАЯ ПОДСВЕТКА КАМПУСА
+// ==========================================
 
-  const mapImage = el('img', 'contacts-map__image');
+const map = el('div', 'contacts-map');
 
-  mapImage.src = asset('kaznmu-map.png');
-  mapImage.alt =
-    'Изометрическая карта Казахского национального медицинского университета';
+// Оригинальная белая карта
+const mapImage = el('img', 'contacts-map__image');
 
-  mapImage.loading = 'lazy';
+mapImage.src = asset('kaznmu-map.png');
+mapImage.alt =
+  'Изометрическая карта Казахского национального медицинского университета';
 
-  map.append(mapImage);
+mapImage.loading = 'lazy';
+
+// Вторая карта с фиолетовой подсветкой
+const mapGlow = el(
+  'img',
+  'contacts-map__image contacts-map__glow'
+);
+
+mapGlow.src = asset('kaznmu-map-glow.png');
+mapGlow.alt = '';
+mapGlow.setAttribute('aria-hidden', 'true');
+mapGlow.loading = 'lazy';
+
+// Обе карты накладываются друг на друга
+// Третья карта — усиленная подсветка
+const mapHigh = el(
+  'img',
+  'contacts-map__image contacts-map__high'
+);
+
+mapHigh.src = asset('kaznmu-high.png');
+mapHigh.alt = '';
+mapHigh.setAttribute('aria-hidden', 'true');
+mapHigh.loading = 'lazy';
+
+// Три слоя карты
+map.append(mapImage, mapGlow, mapHigh);
 
   // Контактная информация
   const details = el('div', 'contacts-details');
@@ -882,6 +911,25 @@ app.append(
 
 document.body.append(app);
 
+// Staggered, section-level entrances. Project cards are intentionally excluded.
+const revealGroups = [
+  ['.hero__title, .hero__text, .hero__actions', 90],
+  ['.quote-card', 0],
+  ['.stats__intro, .stat', 80],
+  ['.stages-eyebrow, .stages-title, .stage-item', 80],
+  ['.contacts-eyebrow, .contacts-title, .contacts-description, .contacts-button, .contacts-map, .contacts-details', 75],
+  ['.footer-brand, .footer-navigation, .footer-contacts, .footer-bottom', 70]
+];
+
+revealGroups.forEach(([selector, step]) => {
+  document.querySelectorAll(selector).forEach((node, index) => {
+    node.classList.add('reveal');
+    node.style.setProperty('--delay', `${index * step}ms`);
+  });
+});
+
+document.querySelector('.hero__content')?.classList.remove('reveal');
+
 // Мобильное меню
 const siteHeader = document.querySelector('.site-header');
 const menuToggle = document.querySelector('.menu-toggle');
@@ -989,3 +1037,82 @@ document.querySelectorAll('.stat__number').forEach(
     counterObserver.observe(counter);
   }
 );
+
+// Coordinate-driven stages impulse. It only runs while the timeline is visible,
+// and dot hits are calculated from their real viewport positions after resizing.
+const stagesTimeline = document.querySelector('.stages-timeline');
+const stagesImpulse = document.querySelector('.stages-impulse');
+const stageDots = [...document.querySelectorAll('.stage-dot')];
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+if (stagesTimeline && stagesImpulse && stageDots.length) {
+  const duration = 5600;
+  const trailLength = 160;
+  let active = false;
+  let frameId = 0;
+  let cycleStart = 0;
+  let previousHead = -trailLength;
+  let hitDots = new Set();
+
+  const pulseDot = (dot) => {
+    dot.classList.remove('is-hit');
+    void dot.offsetWidth;
+    dot.classList.add('is-hit');
+    window.setTimeout(() => dot.classList.remove('is-hit'), 720);
+  };
+
+  const animateStages = (now) => {
+    if (!active || reduceMotion.matches) return;
+
+    if (!cycleStart) cycleStart = now;
+    let progress = (now - cycleStart) / duration;
+
+    if (progress >= 1) {
+      cycleStart = now;
+      progress = 0;
+      previousHead = -trailLength;
+      hitDots = new Set();
+    }
+
+    const timelineRect = stagesTimeline.getBoundingClientRect();
+    const head = -trailLength + progress * (window.innerWidth + trailLength);
+    const localX = head - timelineRect.left - trailLength;
+
+    stagesImpulse.style.transform = `translate3d(${localX}px, 0, 0)`;
+    stagesImpulse.style.opacity = progress < 0.03 || progress > 0.98 ? '0' : '1';
+
+    stageDots.forEach((dot) => {
+      const center = dot.getBoundingClientRect().left + dot.offsetWidth / 2;
+      if (!hitDots.has(dot) && previousHead < center && head >= center) {
+        hitDots.add(dot);
+        pulseDot(dot);
+      }
+    });
+
+    previousHead = head;
+    frameId = requestAnimationFrame(animateStages);
+  };
+
+  const stagesVisibility = new IntersectionObserver(([entry]) => {
+    active = entry.isIntersecting;
+    cancelAnimationFrame(frameId);
+
+    if (active && !reduceMotion.matches && window.innerWidth > 640) {
+      cycleStart = 0;
+      previousHead = -trailLength;
+      hitDots = new Set();
+      frameId = requestAnimationFrame(animateStages);
+    }
+  }, { rootMargin: '15% 0px', threshold: 0.01 });
+
+  stagesVisibility.observe(stagesTimeline);
+
+  reduceMotion.addEventListener('change', () => {
+    cancelAnimationFrame(frameId);
+    stagesImpulse.removeAttribute('style');
+    if (active && !reduceMotion.matches && window.innerWidth > 640) {
+      cycleStart = 0;
+      frameId = requestAnimationFrame(animateStages);
+    }
+  });
+}
