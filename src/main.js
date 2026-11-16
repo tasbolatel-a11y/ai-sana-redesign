@@ -425,11 +425,30 @@ const projects = () => {
 
   const container = el('div', 'projects-container container');
 
-  const heading = el(
-    'h2',
-    'projects-heading',
-    'Все проекты КазНМУ'
+  const heading = el('div', 'projects-heading');
+  const headingNumberCrop = el('div', 'projects-heading__number-crop');
+  const headingNumber = el('span', 'projects-heading__number', '26');
+  const headingDivider = el('span', 'projects-heading__divider');
+  const headingCopy = el('div', 'projects-heading__copy');
+  const headingEyebrow = el(
+    'p',
+    'projects-heading__eyebrow',
+    'КАТАЛОГ ПРОЕКТОВ'
   );
+  const headingTitle = el(
+    'h2',
+    'projects-heading__title',
+    'ВСЕ ПРОЕКТЫ КАЗНМУ'
+  );
+  const headingDescription = el(
+    'p',
+    'projects-heading__description',
+    'Проекты университета в области искусственного интеллекта, образования, медицины, науки и цифрового управления.'
+  );
+
+  headingNumberCrop.append(headingNumber);
+  headingCopy.append(headingEyebrow, headingTitle, headingDescription);
+  heading.append(headingNumberCrop, headingDivider, headingCopy);
 
   const grid = el('div', 'projects-grid');
 

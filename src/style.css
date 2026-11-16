@@ -141,11 +141,8 @@ svg {
 }
 
 .container {
-
   width: min(1280px, calc(100% - 64px));
-
   margin-inline: auto;
-
 }
 
 .section {
@@ -211,8 +208,6 @@ svg {
     flex: none;
 
     position: relative;
-
-    left: -150px;
 
 }
 
@@ -527,8 +522,6 @@ svg {
   padding-bottom: 34px;
 
   position: relative;
-
-  left: -150px;
 
 }
 
@@ -879,11 +872,8 @@ svg {
 }
 
 @media (max-width: 1180px) {
-
   .container {
-
     width: min(100% - 48px, 1080px);
-
   }
 
   .nav {
@@ -921,9 +911,7 @@ svg {
 @media (max-width: 900px) {
 
   .container {
-
     width: min(100% - 40px, 760px);
-
   }
 
   .site-header,
@@ -1026,8 +1014,6 @@ svg {
 
     padding-bottom: 72px;
 
-    left: 0;
-
   }
 
   .hero__title {
@@ -1099,9 +1085,7 @@ svg {
 @media (max-width: 640px) {
 
   .container {
-
     width: calc(100% - 32px);
-
   }
 
   .brand__name {
@@ -1970,8 +1954,15 @@ svg {
 .quote-card__mark { display: flex; justify-content: flex-end; align-items: center; }
 .quote-card__icon { display: block; width: 64px; height: auto; }
 .quote-card__portrait-wrap { width: 54px; height: 54px; flex-shrink: 0; overflow: hidden; border-radius: 50%; }
-.quote-card__portrait-wrap .quote-card__portrait { display: block; width: 100%; height: 100%; border-radius: 0; object-fit: cover; object-position: center 25%; transform: scale(1.8); }
-
+.quote-card__portrait-wrap .quote-card__portrait {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+    object-position: center 20%;
+    transform: scale(1.2);
+}
 /* FINAL: Statistics matching the new Figma layout */
 .stats {
   position: relative; display: flex; align-items: center; width: 100%;
@@ -2139,12 +2130,66 @@ svg {
 }
 
 .projects-heading {
-    margin: 0 0 70px;
+    display: grid;
+    grid-template-columns: 112px 1px minmax(0, 1fr);
+    align-items: center;
+    margin: 0 0 84px;
     color: #111111;
-    font-size: 42px;
-    font-weight: 500;
+    background: transparent;
+}
+
+.projects-heading__number-crop {
+    width: 112px;
+    overflow: hidden;
+}
+
+.projects-heading__number {
+    display: block;
+    width: max-content;
+    color: #000000;
+    font-size: 110px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+}
+
+.projects-heading__divider {
+    width: 1px;
+    height: 150px;
+    background: rgba(17, 17, 17, 0.28);
+}
+
+.projects-heading__copy {
+    max-width: 760px;
+    margin-left: 28px;
+}
+
+.projects-heading__eyebrow {
+    margin: 0 0 10px;
+    color: #7C37B8;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.projects-heading__title {
+    margin: 0 0 12px;
+    color: #000000;
+    font-size: 32px;
+    font-weight: 700;
     line-height: 1.15;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.025em;
+}
+
+.projects-heading__description {
+    margin: 0;
+    color: #6B6B6B;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
 }
 
 /* Четыре панели без промежутков */
@@ -2395,8 +2440,28 @@ svg {
     }
 
     .projects-heading {
-        font-size: 34px;
-        margin-bottom: 45px;
+        grid-template-columns: 94px 1px minmax(0, 1fr);
+        margin-bottom: 48px;
+    }
+
+    .projects-heading__number-crop {
+        width: 94px;
+    }
+
+    .projects-heading__number {
+        font-size: 96px;
+    }
+
+    .projects-heading__divider {
+        height: 135px;
+    }
+
+    .projects-heading__copy {
+        margin-left: 24px;
+    }
+
+    .projects-heading__title {
+        font-size: 28px;
     }
 
     .projects-grid {
@@ -2420,8 +2485,38 @@ svg {
     }
 
     .projects-heading {
-        font-size: 30px;
-        margin-bottom: 35px;
+        grid-template-columns: 78px 1px minmax(0, 1fr);
+        margin-bottom: 40px;
+    }
+
+    .projects-heading__number-crop {
+        width: 78px;
+    }
+
+    .projects-heading__number {
+        font-size: 80px;
+    }
+
+    .projects-heading__divider {
+        height: 120px;
+    }
+
+    .projects-heading__copy {
+        margin-left: 18px;
+    }
+
+    .projects-heading__eyebrow {
+        margin-bottom: 8px;
+        font-size: 10px;
+    }
+
+    .projects-heading__title {
+        margin-bottom: 9px;
+        font-size: 24px;
+    }
+
+    .projects-heading__description {
+        font-size: 14px;
     }
 
     .projects-grid {
@@ -3957,10 +4052,6 @@ svg {
 }
 
 /* Заголовок и текст Hero */
-.hero__content {
-    left: 0;
-}
-
 /* Раздел «О программе» */
 .about__left {
     left: 0;
@@ -3972,24 +4063,10 @@ svg {
 }
 
 /* Контейнеры не выходят за экран */
-.container {
-    width: min(1280px, calc(100% - 64px));
-    margin-inline: auto;
-}
 
 /* Планшеты */
-@media (max-width: 900px) {
-    .container {
-        width: calc(100% - 40px);
-    }
-}
 
 /* Телефоны */
-@media (max-width: 640px) {
-    .container {
-        width: calc(100% - 32px);
-    }
-}
 /* Компактные кнопки Hero */
 .hero__actions {
     gap: 16px;
@@ -4169,11 +4246,9 @@ svg {
 .contacts-container {
     position: relative;
     left: auto;
-    max-width: 1280px;
 }
 
 .brand,
-.hero__content,
 .about__left,
 .stats__intro {
     left: auto;
@@ -4256,6 +4331,39 @@ svg {
 .hero {
     min-height: min(900px, calc(100svh - 20px));
     background: #00173A;
+}
+
+/* Header and Hero share one leading edge without shifting other sections. */
+.site-header__inner {
+    width: 100%;
+    max-width: none;
+    padding-inline-start: 130px;
+    padding-inline-end: max(32px, calc((100vw - 1280px) / 2));
+    box-sizing: border-box;
+}
+
+.hero__content {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 120px;
+    box-sizing: border-box;
+}
+
+@media (min-width: 1181px) {
+    .nav .button--header {
+        right: max(32px, calc((100vw - 1280px) / 2));
+    }
+}
+
+@media (max-width: 1599px) and (min-width: 1181px) {
+    .site-header__inner {
+        padding-inline-start: 98px;
+    }
+
+    .hero__content {
+        padding-inline: 88px;
+    }
 }
 
 .hero::before {
@@ -4452,8 +4560,28 @@ svg {
     100% { opacity: 0; transform: scale(2.4); }
 }
 
+@media (max-width: 1180px) {
+    .site-header__inner {
+        padding-inline-start: 38px;
+        padding-inline-end: max(24px, calc((100vw - 1080px) / 2));
+    }
+
+    .hero__content {
+        padding-inline: 28px;
+    }
+}
+
 @media (max-width: 900px) {
     .site-header__inner { gap: 1.5rem; }
+
+    .site-header__inner {
+        padding-inline-start: 38px;
+        padding-inline-end: max(20px, calc((100vw - 760px) / 2));
+    }
+
+    .hero__content {
+        padding-inline: 28px;
+    }
 
     .hero {
         min-height: 760px;
@@ -4472,6 +4600,15 @@ svg {
 
 @media (max-width: 640px) {
     :root { --section-space: 3.75rem; }
+
+    .site-header__inner {
+        padding-inline-start: 26px;
+        padding-inline-end: 16px;
+    }
+
+    .hero__content {
+        padding-inline: 18px;
+    }
 
     .hero {
         min-height: 740px;
@@ -4599,64 +4736,6 @@ svg {
 
 /* Фотография с подсветкой поверх оригинала */
 /* Подсветка зданий КазНМУ */
-.contacts-map__glow {
-    position: absolute;
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: fill;
-
-    opacity: 0;
-    filter: saturate(1.25) contrast(1.04);
-
-    animation: kaznmuBreathingLight 5s ease-in-out infinite;
-
-    pointer-events: none;
-}
-
-/* Плавная подсветка с двойным импульсом */
-@keyframes kaznmuBreathingLight {
-    0%, 100% {
-        opacity: 0;
-    }
-
-    25% {
-        opacity: 0.85;
-    }
-
-    38% {
-        opacity: 1;
-    }
-
-    48% {
-        opacity: 0.72;
-    }
-
-    58% {
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 0.35;
-    }
-}
-
-/* Отключаем анимацию при соответствующей настройке системы */
-@media (prefers-reduced-motion: reduce) {
-    .contacts-map__glow {
-        animation: none;
-        opacity: 0;
-        filter: none;
-    }
-}
-/* Три слоя карты КазНМУ */
-.contacts-map {
-    position: relative;
-    overflow: hidden;
-}
-
 .contacts-map__glow,
 .contacts-map__high {
     position: absolute;
@@ -4670,25 +4749,26 @@ svg {
 
 /* Отключаем прежнюю анимацию второго слоя */
 .contacts-map__glow {
-    animation: kaznmuSoftGlow 6s ease-in-out infinite;
+    animation: kaznmuSoftGlow 6s linear infinite;
 }
 
 /* Усиленная подсветка */
 .contacts-map__high {
-    animation: kaznmuHighGlow 6s ease-in-out infinite;
+    animation: kaznmuHighGlow 6s linear infinite;
 }
 
 /* Мягкая подсветка появляется первой */
 @keyframes kaznmuSoftGlow {
-    0%, 100% { opacity: 0; }
-    20%, 75% { opacity: 1; }
-    90% { opacity: 0; }
+    0%, 15% { opacity: 0; }
+    35%, 80% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 /* Яркая подсветка появляется поверх мягкой */
 @keyframes kaznmuHighGlow {
-    0%, 25%, 85%, 100% { opacity: 0; }
-    45%, 60% { opacity: 1; }
+    0%, 35% { opacity: 0; }
+    50%, 60% { opacity: 1; }
+    80%, 100% { opacity: 0; }
 }
 
 /* Доступность */
