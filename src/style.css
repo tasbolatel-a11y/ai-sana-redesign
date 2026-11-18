@@ -2138,25 +2138,28 @@ svg {
     font-family: 'Inter', sans-serif;
 }
 
+/* Заголовок каталога проектов */
 .projects-heading {
     display: grid;
-    grid-template-columns: 112px 1px minmax(0, 1fr);
+    grid-template-columns: 125px 1px minmax(0, 1fr);
     align-items: center;
     margin: 0 0 84px;
     color: #111111;
     background: transparent;
 }
 
+/* Контейнер цифры */
 .projects-heading__number-crop {
-    width: 112px;
-    overflow: hidden;
+    width: 125px;
+    overflow: visible;
 }
 
+/* Полная цифра 26 */
 .projects-heading__number {
     display: block;
     width: max-content;
     color: #000000;
-    font-size: 110px;
+    font-size: 90px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.06em;
