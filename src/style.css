@@ -1967,7 +1967,7 @@ svg {
 .stats {
   position: relative; display: flex; align-items: center; width: 100%;
   min-height: 300px; margin-top: 0; padding: 45px 0;
-  color: #fff; background: #071c35 url('/images/статистика.jpg') center / cover no-repeat;
+  color: #fff; background: #071c35 url('/images/kaznmuunik.jpg') center / cover no-repeat;
   isolation: isolate;
 }
 .stats::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(0,0,0,.55); }
@@ -2012,8 +2012,17 @@ svg {
 
     padding: 55px 0;
 
-    background: #071c35 url('/images/статистика.jpg')
-        center / cover no-repeat;
+     /* Затемнение 60% + фотография */
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.726),
+            rgba(0, 0, 0, 0.705)
+        ),
+        url('/images/kaznmuunik.jpg');
+
+    background-size: cover, cover;
+    background-position: center, center 45%;
+    background-repeat: no-repeat;
 }
 
 /* Затемнение фотографии */
@@ -2129,25 +2138,28 @@ svg {
     font-family: 'Inter', sans-serif;
 }
 
+/* Заголовок каталога проектов */
 .projects-heading {
     display: grid;
-    grid-template-columns: 112px 1px minmax(0, 1fr);
+    grid-template-columns: 125px 1px minmax(0, 1fr);
     align-items: center;
     margin: 0 0 84px;
     color: #111111;
     background: transparent;
 }
 
+/* Контейнер цифры */
 .projects-heading__number-crop {
-    width: 112px;
-    overflow: hidden;
+    width: 125px;
+    overflow: visible;
 }
 
+/* Полная цифра 26 */
 .projects-heading__number {
     display: block;
     width: max-content;
     color: #000000;
-    font-size: 110px;
+    font-size: 90px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.06em;
